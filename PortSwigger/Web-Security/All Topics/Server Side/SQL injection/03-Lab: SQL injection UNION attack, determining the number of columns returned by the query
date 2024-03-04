@@ -1,0 +1,40 @@
+This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables. 
+The first step of such an attack is to determine the number of columns that are being returned by the query. You will then use this technique in subsequent labs to construct the full attack.
+
+To solve the lab, determine the number of columns returned by the query by performing a SQL injection UNION attack that returns an additional row containing null values. 
+
+End Goal: determine the number of columns returned by the query.
+
+Background (Union):
+
+table1  table2
+a | b   c | d
+-----   ------
+1 , 2   2 , 3
+3 , 4   4 , 5
+
+Query #1: select a, b from table1
+1,2
+3,4
+
+Query #2: select a, b from table1 UNION select c,d from table2
+1,2
+3,4
+2,3
+4,5
+
+Rule: 
+- The number and the order of the columns must be the same is all queries
+- The data types must be compatible
+
+SQLi attack (way #1):
+
+select ? from table1 UNION select NULL
+- error => incorrect number of columns
+
+select ? from table1 UNION select NULL, NULL, NULL
+- 200 response code => correct number of columns
+
+SQLi attack (way #2):
+
+select a, b from table1 order by 3
