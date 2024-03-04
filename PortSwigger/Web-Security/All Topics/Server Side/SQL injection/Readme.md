@@ -89,3 +89,15 @@ The modified query returns all items where either the category is Gifts, or 1 is
 Warning
 
 Take care when injecting the condition OR 1=1 into a SQL query. Even if it appears to be harmless in the context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an UPDATE or DELETE statement, for example, it can result in an accidental loss of data.
+
+Subverting application logic
+
+Imagine an application that lets users log in with a username and password. If a user submits the username wiener and the password bluecheese, the application checks the credentials by performing the following SQL query:
+SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'
+
+If the query returns the details of a user, then the login is successful. Otherwise, it is rejected.
+
+In this case, an attacker can log in as any user without the need for a password. They can do this using the SQL comment sequence -- to remove the password check from the WHERE clause of the query. For example, submitting the username administrator'-- and a blank password results in the following query:
+SELECT * FROM users WHERE username = 'administrator'--' AND password = ''
+
+This query returns the user whose username is administrator and successfully logs the attacker in as that user. 
