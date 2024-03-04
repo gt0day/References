@@ -6,7 +6,9 @@ To solve the lab, perform a SQL injection UNION attack that retrieves all userna
 
 Hint: You can find some useful payloads on our SQL injection cheat sheet. 
 
-End Goal: retrieve all usernames and passwords and login as the administrator user.
+End Goal: 
+- retrieve all usernames and passwords 
+- login as the administrator user.
 
 Analysis:
 --------
