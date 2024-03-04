@@ -183,3 +183,18 @@ If the column data type is not compatible with string data, the injected query w
 Conversion failed when converting the varchar value 'a' to data type int.
 
 If an error does not occur, and the application's response contains some additional content including the injected string value, then the relevant column is suitable for retrieving string data. 
+
+Using a SQL injection UNION attack to retrieve interesting data
+
+When you have determined the number of columns returned by the original query and found which columns can hold string data, you are in a position to retrieve interesting data.
+
+Suppose that:
+
+    The original query returns two columns, both of which can hold string data.
+    The injection point is a quoted string within the WHERE clause.
+    The database contains a table called users with the columns username and password.
+
+In this example, you can retrieve the contents of the users table by submitting the input:
+' UNION SELECT username, password FROM users--
+
+In order to perform this attack, you need to know that there is a table called users with two columns called username and password. Without this information, you would have to guess the names of the tables and columns. All modern databases provide ways to examine the database structure, and determine what tables and columns they contain. 
