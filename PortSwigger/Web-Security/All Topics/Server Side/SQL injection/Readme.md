@@ -478,3 +478,15 @@ MyDatabase     dbo           Users       Username     varchar
 MyDatabase     dbo           Users       Password     varchar
 
 This output shows the columns in the specified table and the data type of each column. 
+
+# Listing the contents of an Oracle database
+
+On Oracle, you can find the same information as follows:
+
+    You can list tables by querying all_tables:
+
+    SELECT * FROM all_tables
+
+    You can list columns by querying all_tab_columns:
+
+    SELECT * FROM all_tab_columns WHERE table_name = 'USERS'
