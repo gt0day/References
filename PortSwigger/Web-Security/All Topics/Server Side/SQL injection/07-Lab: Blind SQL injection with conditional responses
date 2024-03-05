@@ -8,7 +8,7 @@ To solve the lab, log in as the administrator user.
 
 Hint: You can assume that the password only contains lowercase, alphanumeric characters. 
 
-End Goals: 
+End Goal: 
 - Enumerate the password of the administrator
 - Log in as the administrator user
 
