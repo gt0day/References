@@ -4,7 +4,7 @@ The results of the SQL query are not returned.
 The database contains a different table called users, with columns called username and password. To solve the lab, find a way to leak the password for the administrator user, 
 then log in to their account. 
 
-End Goals:
+End Goal:
 - Exploit SQLi to retrieve the admin users credentials from the users table
 - Log into their account
 
