@@ -386,3 +386,41 @@ Read more
 
     How to prevent SQL injection
     Find blind SQL injection vulnerabilities using Burp Suite's web vulnerability scanner
+
+
+# Second-order SQL injection
+
+First-order SQL injection occurs when the application processes user input from an HTTP request and incorporates the input into a SQL query in an unsafe way.
+
+Second-order SQL injection occurs when the application takes user input from an HTTP request and stores it for future use. This is usually done by placing the input into a database, but no vulnerability occurs at the point where the data is stored. Later, when handling a different HTTP request, the application retrieves the stored data and incorporates it into a SQL query in an unsafe way. For this reason, second-order SQL injection is also known as stored SQL injection. 
+
+![image](https://github.com/gt0day/References/assets/83251831/575d65b9-4458-4f67-b0a2-8dda57168867)
+
+ Second-order SQL injection often occurs in situations where developers are aware of SQL injection vulnerabilities, and so safely handle the initial placement of the input into the database. When the data is later processed, it is deemed to be safe, since it was previously placed into the database safely. At this point, the data is handled in an unsafe way, because the developer wrongly deems it to be trusted.
+
+# Examining the database
+
+Some core features of the SQL language are implemented in the same way across popular database platforms, and so many ways of detecting and exploiting SQL injection vulnerabilities work identically on different types of database.
+
+However, there are also many differences between common databases. These mean that some techniques for detecting and exploiting SQL injection work differently on different platforms. For example:
+
+    Syntax for string concatenation.
+    Comments.
+    Batched (or stacked) queries.
+    Platform-specific APIs.
+    Error messages.
+
+Read more
+SQL injection cheat sheet
+
+After you identify a SQL injection vulnerability, it's often useful to obtain information about the database. This information can help you to exploit the vulnerability.
+
+You can query the version details for the database. Different methods work for different database types. This means that if you find a particular method that works, you can infer the database type. For example, on Oracle you can execute:
+SELECT * FROM v$version
+
+You can also identify what database tables exist, and the columns they contain. For example, on most databases you can execute the following query to list the tables:
+SELECT * FROM information_schema.tables
+Read more
+
+    Examining the database in SQL injection attacks
+    SQL injection cheat sheet
