@@ -8,7 +8,7 @@ To solve the lab, log in as the administrator user.
 
 Hint:  This lab uses an Oracle database. For more information, see the SQL injection cheat sheet. 
 
-End Goals:
+End Goal:
 - Output the administrator password
 - Log in as the administrator user
 
