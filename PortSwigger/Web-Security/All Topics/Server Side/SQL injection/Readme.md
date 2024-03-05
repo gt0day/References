@@ -377,3 +377,12 @@ Note
 
 There are various ways of triggering out-of-band interactions, and different techniques apply on different types of database. For more details, see the SQL injection cheat sheet.
 
+# How to prevent blind SQL injection attacks?
+
+Although the techniques needed to find and exploit blind SQL injection vulnerabilities are different and more sophisticated than for regular SQL injection, the measures needed to prevent SQL injection are the same.
+
+As with regular SQL injection, blind SQL injection attacks can be prevented through the careful use of parameterized queries, which ensure that user input cannot interfere with the structure of the intended SQL query.
+Read more
+
+    How to prevent SQL injection
+    Find blind SQL injection vulnerabilities using Burp Suite's web vulnerability scanner
